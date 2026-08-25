@@ -1,0 +1,117 @@
+{
+  "id": "csr_2ac4e89ea3f94fba99145285fb7bbce5",
+  "estimate_number": "51108564",
+  "work_status": "scheduled",
+  "lead_source": "HouseAccount",
+  "customer": {
+    "id": "cus_51eb63f50bda440292ec0bebc169eb0a",
+    "first_name": "Ada",
+    "last_name": null,
+    "email": null,
+    "mobile_number": "5550000001",
+    "home_number": null,
+    "work_number": null,
+    "company": null,
+    "notifications_enabled": true,
+    "lead_source": "HouseAccount",
+    "notes": null,
+    "kind": "homeowner",
+    "created_at": "2026-06-15T12:03:48Z",
+    "updated_at": "2026-06-15T12:03:48Z",
+    "company_name": "Example Plumbing",
+    "company_id": "143e13ab-943d-483b-b9f9-14821c53c849",
+    "tags": []
+  },
+  "address": {
+    "id": null,
+    "type": "service",
+    "street": "1 Example Street",
+    "street_line_2": null,
+    "city": "Springfield",
+    "state": "CA",
+    "zip": "90210",
+    "country": null,
+    "latitude": 34.0,
+    "longitude": -118.0
+  },
+  "created_at": "2026-06-21T13:39:50Z",
+  "updated_at": "2026-06-21T13:39:50Z",
+  "company_name": "Example Plumbing",
+  "company_id": "143e13ab-943d-483b-b9f9-14821c53c849",
+  "work_timestamps": {
+    "on_my_way_at": null,
+    "started_at": null,
+    "completed_at": null
+  },
+  "schedule": {
+    "scheduled_start": "2026-06-23T17:15:00Z",
+    "scheduled_end": "2026-06-23T18:00:00Z",
+    "time_zone": "America/Los_Angeles",
+    "scheduled_start_local": "2026-06-23T10:15:00-07:00",
+    "scheduled_end_local": "2026-06-23T11:00:00-07:00",
+    "arrival_window": 30,
+    "appointments": []
+  },
+  "assigned_employees": [
+    {
+      "id": "pro_738721e93c12463ea2e756267f5a5fe7",
+      "first_name": "Ada",
+      "last_name": "Example",
+      "email": "ada@example.com",
+      "mobile_number": "5550000001",
+      "color_hex": "c0370c",
+      "avatar_url": "https://pro.housecallpro.com/assets/add_image_thumb_web_round.png",
+      "role": "admin",
+      "tags": [],
+      "permissions": {
+        "can_add_and_edit_job": true,
+        "can_call_and_text_with_customers": true,
+        "can_chat_with_customers": false,
+        "can_delete_and_cancel_job": true,
+        "can_edit_message_on_invoice": true,
+        "can_see_street_view_data": true,
+        "can_take_payment_see_prices": true,
+        "can_see_customers": true,
+        "can_see_marketing_campaigns": true,
+        "can_see_reporting": true,
+        "can_edit_settings": true,
+        "can_be_booked_online": false,
+        "can_share_job": false,
+        "can_see_full_schedule": true,
+        "can_see_future_jobs": true,
+        "is_point_of_contact": false,
+        "is_admin": true
+      },
+      "created_at": "2026-05-06T19:44:42Z",
+      "company_name": "Example Plumbing",
+      "company_id": "143e13ab-943d-483b-b9f9-14821c53c849"
+    }
+  ],
+  "estimate_fields": {
+    "job_type": null,
+    "business_unit": null
+  },
+  "assigned_route_template_id": null,
+  "options": [
+    {
+      "id": "est_7e935e461264420eb5d6d5421558d9a3",
+      "name": "Option #1",
+      "option_number": "51108564",
+      "total_amount": 0,
+      "approval_status": null,
+      "status": "submitted for signoff",
+      "message_from_pro": "Thank you for doing business with us! All payments due within 30 days",
+      "tags": [
+        "Pipeline Automation"
+      ],
+      "notes": [
+        {
+          "id": "nte_890617b1c1a24b228464e26c9beefdf4",
+          "content": "No phone (estimate $20\u2013$50)"
+        }
+      ],
+      "created_at": "2026-06-21T13:39:50Z",
+      "updated_at": "2026-06-22T13:45:09Z"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "page": 1,
+  "page_size": 1,
+  "total_pages": 5379,
+  "total_items": 5379,
+  "customers": [
+    {
+      "id": "cus_c3fd9f15d014442aa3165fccf68ae95c",
+      "first_name": "Ada",
+      "last_name": "Example",
+      "email": "ada@example.com",
+      "mobile_number": "5550000001",
+      "home_number": "5550000002",
+      "work_number": "5550000003",
+      "company": null,
+      "notifications_enabled": true,
+      "lead_source": null,
+      "notes": null,
+      "kind": "homeowner",
+      "created_at": "2026-06-21T14:01:07Z",
+      "updated_at": "2026-06-21T14:01:07Z",
+      "company_name": "Example Plumbing",
+      "company_id": "143e13ab-943d-483b-b9f9-14821c53c849",
+      "tags": [],
+      "addresses": [
+        {
+          "id": "adr_703532314fe64002a5104d3e0a29f611",
+          "type": "billing",
+          "street": "1 Example Street",
+          "street_line_2": null,
+          "city": "Springfield",
+          "state": "CA",
+          "zip": "90210",
+          "country": "US",
+          "latitude": 34.0,
+          "longitude": -118.0
+        }
+      ]
+    }
+  ]
+}

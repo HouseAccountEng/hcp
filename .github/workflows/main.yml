@@ -27,3 +27,5 @@ jobs:
           bundler-cache: true
       - name: Run the default task
         run: bundle exec rake
+      - name: Check the style
+        run: bundle exec rubocop

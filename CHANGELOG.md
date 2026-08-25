@@ -1,3 +1,13 @@
+## [Unreleased]
+
+## [1.3.0] - 2026-08-25
+
+- [Feature] Read customers, estimates, jobs and job appointments, as an Active Record relation:
+  `Hcp::Job.all`, `.where`, `.order`, `.limit`, `.includes` and `.find`, walked a page at a time.
+- [Feature] Set the API key once, with `Hcp.key` or `HCP_KEY`, and pass `company_id:` per call.
+- [Feature] Raise `Hcp::NotFound` where Housecall Pro has no such record, and
+  `Hcp::TooManyRequests` — carrying `reset_at` — where it refuses one for rate.
+
 ## [1.2.4] - 2026-06-17
 
 - [Fix] Set event.type when params is nil

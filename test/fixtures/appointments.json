@@ -1,0 +1,13 @@
+{
+  "appointments": [
+    {
+      "id": "appt_02aad0c5d573454cae36e5fa24c839bc",
+      "start_date": null,
+      "start_time": "2026-06-26T10:45:00Z",
+      "end_time": "2026-06-26T12:45:00Z",
+      "anytime": false,
+      "arrival_window_minutes": 30,
+      "dispatched_employees_ids": []
+    }
+  ]
+}

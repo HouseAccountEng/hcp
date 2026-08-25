@@ -1,5 +1,7 @@
 module Hcp
-  class Lead::Pipeline < Resource
+  class Lead::Pipeline
+    include Keyed
+
     def initialize(id: nil, key:, company_id:)
       @id = id
       @key = key
@@ -8,8 +10,6 @@ module Hcp
 
     def update(status_name:)
       status = find_status_by name: status_name
-      raise Error, "Status #{status_name} not found for lead #{@id}" unless status
-
       payload = { resource_type: 'lead', resource_id: @id, status_id: status['id'] }.to_json
       response = Net::HTTP.put uri, payload, headers
       raise Error, response.body unless response.is_a? Net::HTTPSuccess

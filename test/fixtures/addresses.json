@@ -1,0 +1,20 @@
+{
+  "page": 1,
+  "page_size": 10,
+  "total_pages": 1,
+  "total_items": 1,
+  "addresses": [
+    {
+      "id": "adr_703532314fe64002a5104d3e0a29f611",
+      "type": "billing",
+      "street": "1 Example Street",
+      "street_line_2": null,
+      "city": "Springfield",
+      "state": "CA",
+      "zip": "90210",
+      "country": "US",
+      "latitude": 34.0,
+      "longitude": -118.0
+    }
+  ]
+}

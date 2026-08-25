@@ -1,6 +1,8 @@
 module Hcp
-  class Lead < Resource
-    attr_reader :customer_id
+  class Lead
+    include Keyed
+
+    attr_reader :id, :customer_id
 
     def initialize(id: nil, customer_id: nil, key:, company_id:)
       @id = id
@@ -21,7 +23,7 @@ module Hcp
     def lead_for(params = {})
       {
         customer: customer_for(params), address: params[:address],
-        lead_source: params[:source], note: params[:note]
+        lead_source: params[:source], note: params[:note],
       }.compact_blank
     end
 
