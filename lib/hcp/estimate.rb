@@ -27,11 +27,8 @@ module Hcp
     def self.path = 'estimates'
     def self.key = 'estimates'
 
-    # @return [String, nil] the number the estimate is filed under.
-    def estimate_number = @node['estimate_number']
-
-    # @return [String, nil] where the work came from.
-    def lead_source = @node['lead_source']
+    # The number the estimate is filed under, and where the work came from.
+    attributes :estimate_number, :lead_source
 
     # @return [Customer, nil] whose estimate it is.
     def customer = record Customer, 'customer'

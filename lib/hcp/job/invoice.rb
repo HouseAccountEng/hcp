@@ -4,22 +4,13 @@ module Hcp
     # What Housecall Pro calls a list of them.
     def self.key = 'invoices'
 
-    # @return [String, nil] the number the invoice is filed under.
-    def invoice_number = @node['invoice_number']
+    # The number the invoice is filed under, and where Housecall Pro files it in its workflow.
+    attributes :invoice_number, :status
 
-    # @return [String, nil] where Housecall Pro files the invoice in its own workflow.
-    def status = @node['status']
+    # What the invoice comes to, and what is still owed on it.
+    amounts :amount, :due_amount
 
-    # @return [BigDecimal, nil] what the invoice comes to.
-    def amount = money 'amount'
-
-    # @return [BigDecimal, nil] what is still owed on it.
-    def due_amount = money 'due_amount'
-
-    # @return [Time, nil] when the invoice was sent.
-    def sent_at = time 'sent_at'
-
-    # @return [Time, nil] when the invoice was paid.
-    def paid_at = time 'paid_at'
+    # When the invoice was sent, and when it was paid.
+    timestamps :sent_at, :paid_at
   end
 end

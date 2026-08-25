@@ -1,18 +1,10 @@
 module Hcp
   # A pro on a Housecall Pro account.
   class Employee < Resource
-    include Timestamped
+    include Named, Timestamped
 
-    # @return [String] what the pro is called, by whichever of their names Housecall Pro holds.
-    def name = [ @node['first_name'], @node['last_name'] ].compact_blank.join ' '
-
-    # @return [String, nil] the pro's email address.
-    def email = @node['email']
-
-    # @return [String, nil] the pro's mobile number.
-    def phone = @node['mobile_number']
-
-    # @return [String, nil] what the pro may do on the account.
-    def role = @node['role']
+    # How to reach the pro, and what they may do on the account.
+    attributes :email, :role
+    attribute :phone, :mobile_number
   end
 end

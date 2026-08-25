@@ -26,6 +26,7 @@ require 'hcp/queryable'
 require 'hcp/resource'
 
 # Every concern before the records including it, and Schedule before Scheduled, which reads one.
+require 'hcp/named'
 require 'hcp/timestamped'
 require 'hcp/statused'
 require 'hcp/schedule'

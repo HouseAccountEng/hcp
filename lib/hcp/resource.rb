@@ -1,6 +1,26 @@
 module Hcp
   # A record as Housecall Pro answered it.
   class Resource
+    class << self
+      # Reads what Housecall Pro answers under a name, as it answers it.
+      def attribute(name, key = name) = define_method(name) { @node[key.to_s] }
+
+      # Reads several, each under its own name.
+      def attributes(*names) = names.each { |name| attribute name }
+
+      # Reads a moment Housecall Pro stamps.
+      def timestamp(name, key = name) = define_method(name) { time key.to_s }
+
+      # Reads several moments, each under its own name.
+      def timestamps(*names) = names.each { |name| timestamp name }
+
+      # Reads in dollars an amount Housecall Pro counts in cents.
+      def amount(name, key = name) = define_method(name) { money key.to_s }
+
+      # Reads several amounts, each under its own name.
+      def amounts(*names) = names.each { |name| amount name }
+    end
+
     # @param node [Hash] the record as Housecall Pro answered it.
     # @param company_id [String, nil] the location it was read as.
     def initialize(node: {}, company_id: nil)
