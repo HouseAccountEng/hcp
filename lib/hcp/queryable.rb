@@ -20,10 +20,16 @@ module Hcp
     # @return [Resource] the record Housecall Pro files under this ID.
     def find(id, company_id: nil) = all(company_id: company_id).find(id)
 
-    # What a list of these may be narrowed by, ordered by, and asked to bring back.
+    # @return [Hash] what a list of these may be narrowed by.
     def filters = self::FILTERS
+
+    # @return [Array<Symbol>] the conditions Housecall Pro takes more than one of.
     def many = self::MANY
+
+    # @return [Array<Symbol>] what Housecall Pro will put a list of these in order of.
     def sorts = self::SORTS
+
+    # @return [Array<Symbol>] what these bring back beside themselves where asked to.
     def expands = self::EXPANDS
   end
 end

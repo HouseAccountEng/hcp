@@ -23,18 +23,28 @@ module Hcp
     # What a job brings back beside itself where it is asked to.
     EXPANDS = %i[attachments appointments]
 
-    # Where Housecall Pro keeps them, and what it calls a page of them.
+    # Where Housecall Pro keeps them.
     def self.path = 'jobs'
+
+    # What Housecall Pro calls a page of them.
     def self.key = 'jobs'
 
-    # What the job is, where it came from, and the estimate it was won with.
-    attributes :invoice_number, :description, :lead_source, :original_estimate_id
+    attribute :invoice_number
+    attribute :description
+    attribute :lead_source
 
-    # What the job comes to, before tax and after it, and what is still owed.
-    amounts :subtotal, :total_amount, :outstanding_balance
+    # @return [String, nil] the ID of the estimate the job was won with.
+    attribute :original_estimate_id
 
-    # When the job was locked against further changes, and when the customer canceled it.
-    timestamps :locked_at, :canceled_at
+    amount :subtotal
+    amount :total_amount
+    amount :outstanding_balance
+
+    # @return [Time, nil] when the job was locked against further changes.
+    timestamp :locked_at
+
+    # @return [Time, nil] when the customer canceled the job.
+    timestamp :canceled_at
 
     # @return [Array<String>] what the job is tagged with.
     def tags = Array(@node['tags'])

@@ -3,8 +3,10 @@ module Hcp
   class Employee < Resource
     include Named, Timestamped
 
-    # How to reach the pro, and what they may do on the account.
-    attributes :email, :role
+    attribute :email
+    attribute :role
+
+    # @return [String, nil] the number the pro is reached on.
     attribute :phone, :mobile_number
   end
 end

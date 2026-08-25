@@ -3,10 +3,18 @@ module Hcp
   class Estimate::Option < Resource
     include Timestamped
 
-    # What the option is called, whether the customer has answered, and where it stands.
-    attributes :name, :option_number, :approval_status, :status, :message_from_pro
+    attribute :name
+    attribute :option_number
 
-    # What the option comes to.
+    # @return [String, nil] whether the customer has answered, and how.
+    attribute :approval_status
+
+    # @return [String, nil] where Housecall Pro files the option in its own workflow.
+    attribute :status
+
+    # @return [String, nil] what the pro said when they sent it.
+    attribute :message_from_pro
+
     amount :total_amount
 
     # @return [Array<String>] what the option is tagged with.

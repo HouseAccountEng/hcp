@@ -4,11 +4,13 @@ module Hcp
     # What Housecall Pro calls a list of them.
     def self.key = 'appointments'
 
-    # When the visit is booked to start and to end.
+    # @return [Time, nil] when the visit is booked to start.
     timestamp :starts_at, :start_time
+
+    # @return [Time, nil] when the visit is booked to end.
     timestamp :ends_at, :end_time
 
-    # How many minutes wide the arrival window is.
+    # @return [Integer, nil] how many minutes wide the arrival window is.
     attribute :arrival_window, :arrival_window_minutes
 
     # @return [Boolean] whether the visit is booked for a day rather than for a time.

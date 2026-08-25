@@ -4,8 +4,12 @@ module Hcp
     # What Housecall Pro calls a page of a customer's addresses.
     def self.key = 'addresses'
 
-    # Where the address is, as Housecall Pro holds it.
-    attributes :street, :street_line_2, :city, :state, :zip, :country
+    attribute :street
+    attribute :street_line_2
+    attribute :city
+    attribute :state
+    attribute :zip
+    attribute :country
 
     # @return [Symbol, nil] :billing or :service.
     def type = @node['type']&.to_sym

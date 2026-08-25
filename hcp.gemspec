@@ -36,4 +36,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop-rails-omakase' # `rubocop` has no style to read it by
   spec.add_development_dependency 'simplecov' # a drop below full coverage goes unnoticed without it
   spec.add_development_dependency 'webmock' # the tests reach Housecall Pro for real without it
+  spec.add_development_dependency 'yard' # the API reference cannot be built without it
 end

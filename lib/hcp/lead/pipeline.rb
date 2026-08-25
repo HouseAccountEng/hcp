@@ -1,4 +1,5 @@
 module Hcp
+  # Where a Housecall Pro user files a lead while they are still chasing it.
   class Lead::Pipeline
     include Keyed
 
@@ -8,6 +9,8 @@ module Hcp
       @company_id = company_id
     end
 
+    # Moves the lead to the status going by this name.
+    # @param status_name [String] the status as the account names it, such as 'Won'.
     def update(status_name:)
       status = find_status_by name: status_name
       payload = { resource_type: 'lead', resource_id: @id, status_id: status['id'] }.to_json

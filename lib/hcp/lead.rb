@@ -1,4 +1,5 @@
 module Hcp
+  # Somebody who asked a Housecall Pro user for work, before there is a job.
   class Lead
     include Keyed
 
@@ -11,6 +12,8 @@ module Hcp
       @customer_id = customer_id
     end
 
+    # Opens the lead on Housecall Pro, and keeps what it filed the lead and customer under.
+    # @param params [Hash] :name, :email, :phone, :address, :note and :source.
     def create(params = {})
       response = Net::HTTP.post uri, lead_for(params).to_json, headers
       raise Error, response.body unless response.is_a? Net::HTTPSuccess
@@ -19,6 +22,8 @@ module Hcp
     rescue Errno::ECONNREFUSED => error
       raise Error, error
     end
+
+  private
 
     def lead_for(params = {})
       {

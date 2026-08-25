@@ -16,12 +16,21 @@ module Hcp
     # What a customer brings back beside themselves where they are asked to.
     EXPANDS = %i[attachments do_not_service]
 
-    # Where Housecall Pro keeps them, and what it calls a page of them.
+    # Where Housecall Pro keeps them.
     def self.path = 'customers'
+
+    # What Housecall Pro calls a page of them.
     def self.key = 'customers'
 
-    # Who the customer is, and where they came from.
-    attributes :first_name, :last_name, :email, :company, :lead_source
+    attribute :first_name
+    attribute :last_name
+    attribute :email
+
+    # @return [String, nil] the business the customer is, where they are one.
+    attribute :company
+
+    # @return [String, nil] where the customer came from.
+    attribute :lead_source
 
 
     # Housecall Pro holds three numbers, and a caller wants whichever one there is.

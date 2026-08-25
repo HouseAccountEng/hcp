@@ -23,12 +23,16 @@ module Hcp
     # What an estimate brings back beside itself where it is asked to.
     EXPANDS = %i[attachments]
 
-    # Where Housecall Pro keeps them, and what it calls a page of them.
+    # Where Housecall Pro keeps them.
     def self.path = 'estimates'
+
+    # What Housecall Pro calls a page of them.
     def self.key = 'estimates'
 
-    # The number the estimate is filed under, and where the work came from.
-    attributes :estimate_number, :lead_source
+    attribute :estimate_number
+
+    # @return [String, nil] where the work came from.
+    attribute :lead_source
 
     # @return [Customer, nil] whose estimate it is.
     def customer = record Customer, 'customer'

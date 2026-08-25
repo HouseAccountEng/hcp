@@ -1,4 +1,5 @@
 module Hcp
+  # What Housecall Pro sent a webhook to say, read without reaching the network.
   class Event
     # @see https://docs.housecallpro.com/docs/housecall-public-api/46e9e1be07621-webhooks
     SIGNATURE_HEADER = 'Api-Signature'

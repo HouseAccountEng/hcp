@@ -4,11 +4,15 @@ module Hcp
     # Housecall Pro answers a job's line items under `data` rather than under their own name.
     def self.key = 'data'
 
-    # What the line is, and how many of it.
-    attributes :name, :description, :quantity
+    attribute :name
+    attribute :description
 
-    # What the line is charged at, what it costs the pro, and what it comes to.
-    amounts :unit_price, :unit_cost, :amount
+    # @return [Float, nil] how many of it, to two decimal places.
+    attribute :quantity
+
+    amount :unit_price
+    amount :unit_cost
+    amount :amount
 
     # @return [Symbol, nil] :materials, :labor, or one of the gratuities and discounts.
     def kind = @node['kind']&.tr(' ', '_')&.to_sym
