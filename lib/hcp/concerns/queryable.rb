@@ -17,6 +17,12 @@ module Hcp
     # @return [Relation] the records, with these brought back beside each of them.
     def includes(*names, company_id: nil) = all(company_id: company_id).includes(*names)
 
+    # @return [Integer] how many records of this kind the location holds.
+    def count(company_id: nil) = all(company_id: company_id).count
+
+    # @return [Resource, nil] the first record, or nil where the location holds none.
+    def first(company_id: nil) = all(company_id: company_id).first
+
     # @return [Resource] the record Housecall Pro files under this ID.
     def find(id, company_id: nil) = all(company_id: company_id).find(id)
 

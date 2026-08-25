@@ -46,7 +46,7 @@ module Hcp
       Enumerator.new do |yielder|
         seen = 0
         (1..).each do |page|
-          body = read @path, page: page, page_size: PAGE
+          body = read @path, page: page, page_size: [ @limit, PAGE ].compact.min
           body.fetch(@type.key).each do |node|
             yielder << record_for(node)
             break if (seen += 1) == @limit

@@ -9,8 +9,11 @@ class RelationTestCase < Minitest::Test
     assert_equal %w[job_1 job_2], Hcp::Job.all.map(&:id)
   end
 
-  def test_stops_at_the_limit_without_reading_the_page_after_it
-    stub_page 'jobs', 'jobs', [ { 'id' => 'job_1' }, { 'id' => 'job_2' } ], total_pages: 9
+  # A walk cut short asks for what it will keep: a page of two hundred to hand back one is
+  # two hundred records read, however few of them are yielded.
+  def test_asks_for_no_more_records_than_the_limit
+    stub_page 'jobs', 'jobs', [ { 'id' => 'job_1' } ],
+      query: { page: 1, page_size: 1 }, total_pages: 9
 
     assert_equal %w[job_1], Hcp::Job.limit(1).map(&:id)
   end
