@@ -2,11 +2,21 @@
 
 ## [1.3.0] - 2026-08-25
 
-- [Feature] Read customers, estimates, jobs and job appointments, as an Active Record relation:
-  `Hcp::Job.all`, `.where`, `.order`, `.limit`, `.includes` and `.find`, walked a page at a time.
+- [Feature] Read customers, estimates, jobs and job appointments as an Active Record relation:
+  `Hcp::Job.all`, `.where`, `.order`, `.limit`, `.includes`, `.find`, `.count` and `.first`,
+  walked lazily a page at a time.
 - [Feature] Set the API key once, with `Hcp.key` or `HCP_KEY`, and pass `company_id:` per call.
+- [Feature] Narrow a list by a range — `where(scheduled_at: ..2.days.ago)` — and refuse a
+  condition, an order or an expansion Housecall Pro does not take, which it answers by
+  ignoring rather than by refusing.
 - [Feature] Raise `Hcp::NotFound` where Housecall Pro has no such record, and
-  `Hcp::TooManyRequests` — carrying `reset_at` — where it refuses one for rate.
+  `Hcp::TooManyRequests`, carrying `reset_at`, where it refuses one for rate. Both descend
+  from `Hcp::Error`, so an existing rescue still catches them.
+- [Fix] `require 'hcp'` defines `Hcp::VERSION`, which until now was only set as a side effect
+  of Bundler evaluating the gemspec.
+- [Breaking change] `Hcp::Lead#lead_for`, `#customer_for` and `#uri` are now private, and
+  neither `Hcp::Lead` nor `Hcp::Lead::Pipeline` inherits from `Hcp::Resource`, which is now a
+  record rather than a holder of credentials. Nothing documented ever called them.
 
 ## [1.2.4] - 2026-06-17
 

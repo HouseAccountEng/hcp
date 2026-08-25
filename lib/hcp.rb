@@ -11,6 +11,7 @@ require 'active_support/core_ext/enumerable'
 require 'active_support/core_ext/object/blank'
 require 'active_support/core_ext/object/to_query'
 
+require 'hcp/version'
 require 'hcp/error'
 require 'hcp/errors/not_found'
 require 'hcp/errors/too_many_requests'
