@@ -1,6 +1,16 @@
 require 'test_helper'
 
 class AppointmentTestCase < Minitest::Test
+  # Housecall Pro nests the visits under the schedule where a list was asked to bring them.
+  def test_reads_the_visits_a_list_was_asked_to_bring_back_with_each_job
+    stub_page 'jobs', 'jobs', [ fixture('jobs')['jobs'].first ],
+      query: { page: 1, page_size: 200, expand: %w[appointments] }
+
+    visits = Hcp::Job.includes(:appointments).first.schedule.appointments
+
+    assert_equal %w[appt_02aad0c5d573454cae36e5fa24c839bc], visits.map(&:id)
+  end
+
   def test_reads_when_a_visit_is_booked_for_and_who_is_sent_on_it
     stub_read 'jobs/job_1/appointments', fixture('appointments'),
       query: { page: 1, page_size: 200 }

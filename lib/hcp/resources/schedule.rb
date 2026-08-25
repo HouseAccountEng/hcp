@@ -12,5 +12,10 @@ module Hcp
 
     # @return [Integer, nil] how many minutes wide the arrival window is.
     attribute :arrival_window
+
+    # Housecall Pro leaves these out unless a list was asked to bring them back, so a job read
+    # without `includes(:appointments)` has none of them rather than none at all.
+    # @return [Array<Job::Appointment>] the visits the work is booked for.
+    def appointments = records Job::Appointment, 'appointments'
   end
 end

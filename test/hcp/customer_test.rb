@@ -47,5 +47,7 @@ class CustomerTestCase < Minitest::Test
     assert_equal 'CA', address.state
     assert_equal '90210', address.zip
     assert_equal 'US', address.country
+    assert_in_delta 34.0, address.latitude
+    assert_in_delta(-118.0, address.longitude)
   end
 end
