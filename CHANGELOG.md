@@ -1,5 +1,14 @@
 ## [Unreleased]
 
+- [Feature] Read the account a key belongs to: `Hcp::Company.current`, taking `company_id:`.
+  There is no list of companies and no ID to find one by, so it is `current` rather than
+  `find` or `where`. A franchise answers `locations`, each of which may hold locations of
+  its own, and each ID is what `company_id:` takes everywhere else.
+
+- [Fix] `Hcp::Address#latitude` and `#longitude` answer a `Float` whichever endpoint they were
+  read from. Housecall Pro stamps them as numbers under a customer and as strings under the
+  company, and the gem documented `Float` while handing back whatever arrived.
+
 - [Feature] Read when the account is free to be booked into: `Hcp::BookingWindow.all`, taking
   `starts_at:`, `days:`, `minutes:`, `service_id:`, `price_form_id:` and `employee_ids:`.
   Housecall Pro answers this list whole rather than a page at a time, so it comes back as an

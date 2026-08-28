@@ -36,6 +36,8 @@ Hcp::Job.find id, company_id: company_id
 Hcp::Job.all(company_id: company_id).where(work_status: :scheduled)
 ```
 
+`Hcp::Company.current.locations` is where those IDs come from.
+
 ## Reading
 
 A list is walked lazily, a page read only once the one before it runs out, so asking for three
@@ -95,6 +97,34 @@ estimate.estimate_number, estimate.options.map(&:total_amount)
 ```
 
 Housecall Pro counts money in cents; this gem reads it in dollars, as a `BigDecimal`.
+
+## The company
+
+The account the key belongs to. There is no list of companies to narrow and no ID to look one
+up by — a key reads its own account and nothing else — so it is read with `current` rather than
+with `find` or `where`:
+
+```ruby
+company = Hcp::Company.current
+company.name, company.phone, company.support_email, company.website, company.logo_url
+company.time_zone, company.arrival_window, company.address.city, company.zip_codes
+```
+
+`arrival_window` is how many minutes wide a customer's window is by default, and `zip_codes`
+are the ones the account will travel to.
+
+A franchise answers its locations beneath it, each of which may hold locations of its own, so
+what comes back is a tree rather than a flat list:
+
+```ruby
+Hcp::Company.current.locations.flat_map { |region| region.locations }.map(&:name)
+```
+
+Each location's `id` is what `company_id:` takes, here and everywhere else:
+
+```ruby
+Hcp::Company.current company_id: location.id
+```
 
 ## Booking windows
 

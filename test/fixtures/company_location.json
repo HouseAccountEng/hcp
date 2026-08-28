@@ -1,0 +1,28 @@
+{
+  "id": "6b0d549b-6f03-475a-9600-a35a099950d8",
+  "phone_number": "(555) 555-0103",
+  "support_email": "ogdenville@example.com",
+  "name": "Example Handyman - Ogdenville",
+  "logo_url": "https://example.com/logos/ogdenville.jpeg",
+  "address": {
+    "street": "",
+    "street_line_2": null,
+    "city": "Ogdenville",
+    "state": "NC",
+    "country": "US",
+    "zip": "28278",
+    "latitude": "35.1340053",
+    "longitude": "-81.0202533"
+  },
+  "website": "https://example.com/ogdenville",
+  "default_arrival_window": 30,
+  "time_zone": "America/New_York",
+  "service_areas_data": {
+    "zip_codes": [ "28278", "28213" ]
+  },
+  "franchise_info": {
+    "root_franchisor_id": "6513270e-269e-4d37-b2a7-4de452e6b438",
+    "franchisor_depth": 3,
+    "metadata": {}
+  }
+}

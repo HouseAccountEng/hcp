@@ -11,11 +11,12 @@ module Hcp
     attribute :zip
     attribute :country
 
+    # Housecall Pro answers these as numbers under a customer and as strings under the company.
     # @return [Float, nil] how far north the address is, where Housecall Pro placed it.
-    attribute :latitude
+    def latitude = @node['latitude']&.to_f
 
     # @return [Float, nil] how far east the address is, where Housecall Pro placed it.
-    attribute :longitude
+    def longitude = @node['longitude']&.to_f
 
     # @return [Symbol, nil] :billing or :service.
     def type = @node['type']&.to_sym
