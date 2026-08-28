@@ -5,11 +5,12 @@ require 'net/http'
 require 'time'
 
 # Only the Active Support files whose methods are used, rather than the whole of it: a name
-# Housecall Pro holds nothing for arrives as readily empty as null, and its queries carry
-# arrays in the bracketed form `to_query` writes.
+# Housecall Pro holds nothing for arrives as readily empty as null, its queries carry arrays
+# in the bracketed form `to_query` writes, and a key handed to one thread stays on it.
 require 'active_support/core_ext/enumerable'
 require 'active_support/core_ext/object/blank'
 require 'active_support/core_ext/object/to_query'
+require 'active_support/isolated_execution_state'
 
 require 'hcp/version'
 require 'hcp/error'
@@ -48,6 +49,9 @@ require 'hcp/resources/job/invoice'
 
 require 'hcp/resources/estimate'
 require 'hcp/resources/estimate/option'
+
+# After Company, which is what a key opens.
+require 'hcp/access'
 
 require 'hcp/concerns/keyed'
 require 'hcp/lead'

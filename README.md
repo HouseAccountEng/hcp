@@ -15,7 +15,7 @@ gem install hcp
 Or, in a Gemfile, pinned to the current major:
 
 ```ruby
-gem 'hcp', '~> 1.3'
+gem 'hcp', '~> 1.4'
 ```
 
 `~> major.minor` means `bundle update` never crosses a breaking change.
@@ -27,6 +27,18 @@ Set the key once. Left unset, the gem reads `HCP_KEY` from the environment:
 ```ruby
 Hcp.key = ENV['HCP_KEY']
 ```
+
+A process serving several accounts hands each thread its own key for as long as a block runs,
+and is handed back the account that key opens:
+
+```ruby
+Hcp.with_key(key, company_id: location_id) do |access|
+  access.account.name  # the location, as `Hcp::Company.current` would read it
+  Hcp::Job.limit 10    # every read inside the block is this key's
+end
+```
+
+Neither thread sees the other's key, and the one set before the block comes back after it.
 
 An account with more than one location passes `company_id:` per call, since one process may
 serve several:

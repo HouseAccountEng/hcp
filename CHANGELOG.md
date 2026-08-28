@@ -1,5 +1,12 @@
 ## [Unreleased]
 
+## [1.4.0] - 2026-08-28
+
+- [Feature] Read as a key for one block, on one thread: `Hcp.with_key(key, company_id:)`,
+  which hands the block an `Hcp::Access` answering `account`. A process serving several
+  accounts held them all on one `Hcp.key`, so two threads could read each other's; a key
+  handed to a block is the thread's alone, and the one set before it comes back after.
+
 - [Feature] Read the account a key belongs to: `Hcp::Company.current`, taking `company_id:`.
   There is no list of companies and no ID to find one by, so it is `current` rather than
   `find` or `where`. A franchise answers `locations`, each of which may hold locations of
