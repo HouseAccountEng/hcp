@@ -9,8 +9,8 @@
 
 - [Feature] Read the account a key belongs to: `Hcp::Company.current`, taking `company_id:`.
   There is no list of companies and no ID to find one by, so it is `current` rather than
-  `find` or `where`. A franchise answers `locations`, each of which may hold locations of
-  its own, and each ID is what `company_id:` takes everywhere else.
+  `find` or `where`. `locations` is the account itself and then every location under it at
+  any depth, flat, so it is never empty; each ID is what `company_id:` takes everywhere else.
 
 - [Fix] `Hcp::Address#latitude` and `#longitude` answer a `Float` whichever endpoint they were
   read from. Housecall Pro stamps them as numbers under a customer and as strings under the

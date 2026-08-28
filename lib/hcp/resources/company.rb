@@ -34,8 +34,9 @@ module Hcp
     # @return [Array<String>] the ZIP codes the account will travel to.
     def zip_codes = Array(@node.dig('service_areas_data', 'zip_codes'))
 
-    # A location holds its own, so a franchise arrives as a tree rather than as a flat list.
-    # @return [Array<Company>] the locations under this one, whose IDs `company_id:` takes.
-    def locations = records Company, 'locations'
+    # Itself first, then every location under it at any depth, in the order Housecall Pro
+    # lists them: a single company is its own one location, and a franchise reads flat.
+    # @return [Array<Company>] the locations whose IDs `company_id:` takes, this one included.
+    def locations = [ self, *records(Company, 'locations').flat_map(&:locations) ]
   end
 end

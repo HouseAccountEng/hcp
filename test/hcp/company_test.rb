@@ -28,16 +28,17 @@ class CompanyTestCase < Minitest::Test
     assert_in_delta(-118.0, address.longitude)
   end
 
-  # A franchise arrives as a tree, and a location at the foot of it holds none of its own.
-  def test_reads_the_locations_beneath_it
+  # Housecall Pro answers a franchise as a tree; the list reads it flat, the account first, so
+  # a caller never walks it and a location at the foot of the tree is its own one location.
+  def test_reads_itself_and_every_location_beneath_it
     stub_read 'company', fixture('company')
 
-    region = Hcp::Company.current.locations.sole
+    locations = Hcp::Company.current.locations
 
-    assert_equal 'Example Handyman Region', region.name
-    assert_equal [ 'Example Handyman - Springfield', 'Example Handyman - Shelbyville' ],
-      region.locations.map(&:name)
-    assert_empty region.locations.first.locations
+    assert_equal [ 'Example Handyman Group HQ', 'Example Handyman Region',
+                   'Example Handyman - Springfield', 'Example Handyman - Shelbyville', ],
+      locations.map(&:name)
+    assert_equal [ locations.last.id ], locations.last.locations.map(&:id)
   end
 
   # A location reads its own settings rather than the ones the account was opened with.
@@ -52,5 +53,6 @@ class CompanyTestCase < Minitest::Test
     assert_equal 'America/New_York', company.time_zone
     assert_equal 30, company.arrival_window
     assert_equal %w[28278 28213], company.zip_codes
+    assert_equal [ company.id ], company.locations.map(&:id)
   end
 end

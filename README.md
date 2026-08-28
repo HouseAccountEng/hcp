@@ -125,11 +125,13 @@ company.time_zone, company.arrival_window, company.address.city, company.zip_cod
 `arrival_window` is how many minutes wide a customer's window is by default, and `zip_codes`
 are the ones the account will travel to.
 
-A franchise answers its locations beneath it, each of which may hold locations of its own, so
-what comes back is a tree rather than a flat list:
+`locations` is never empty: it is the account itself, then every location under it at any
+depth, in the order Housecall Pro lists them. A single company is its own one location, and a
+franchise reads flat however deep Housecall Pro nests it:
 
 ```ruby
-Hcp::Company.current.locations.flat_map { |region| region.locations }.map(&:name)
+Hcp::Company.current.locations.map(&:name)
+# => ['Acme Handyman HQ', 'Acme Handyman East', 'Acme Handyman of Springfield', …]
 ```
 
 Each location's `id` is what `company_id:` takes, here and everywhere else:
