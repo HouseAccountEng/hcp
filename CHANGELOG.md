@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+- [Feature] Read when the account is free to be booked into: `Hcp::BookingWindow.all`, taking
+  `starts_at:`, `days:`, `minutes:`, `service_id:`, `price_form_id:` and `employee_ids:`.
+  Housecall Pro answers this list whole rather than a page at a time, so it comes back as an
+  `Array` rather than as a relation.
+
 ## [1.3.0] - 2026-08-25
 
 - [Feature] Read customers, estimates, jobs and job appointments as an Active Record relation:

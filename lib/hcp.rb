@@ -34,6 +34,7 @@ require 'hcp/resources/schedule'
 require 'hcp/concerns/scheduled'
 
 require 'hcp/resources/address'
+require 'hcp/resources/booking_window'
 require 'hcp/resources/employee'
 require 'hcp/resources/line_item'
 require 'hcp/resources/note'

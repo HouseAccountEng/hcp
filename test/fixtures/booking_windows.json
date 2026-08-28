@@ -1,0 +1,16 @@
+{
+  "booking_windows": [
+    {
+      "start_time": "2026-08-27T15:00:00Z",
+      "end_time": "2026-08-27T17:00:00Z",
+      "available": true
+    },
+    {
+      "start_time": "2026-08-27T17:00:00Z",
+      "end_time": "2026-08-27T19:00:00Z",
+      "available": false
+    }
+  ],
+  "show_for_days": 7,
+  "start_date": "2026-08-27T00:00:00"
+}

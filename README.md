@@ -96,6 +96,30 @@ estimate.estimate_number, estimate.options.map(&:total_amount)
 
 Housecall Pro counts money in cents; this gem reads it in dollars, as a `BigDecimal`.
 
+## Booking windows
+
+When the account is free to be booked into, as its Online Booking settings answer it. Housecall
+Pro hands this list back whole rather than a page at a time, so it comes back as an `Array`
+rather than as a relation — there is nothing left to narrow, order or cut afterwards.
+
+```ruby
+Hcp::BookingWindow.all
+Hcp::BookingWindow.all starts_at: Date.tomorrow, days: 14
+Hcp::BookingWindow.all employee_ids: [ employee.id ]
+Hcp::BookingWindow.all service_id: id, minutes: 90
+```
+
+Each window says when it opens, when it closes, and whether it is free:
+
+```ruby
+free = Hcp::BookingWindow.all(days: 3).select(&:available?)
+free.map { |window| [ window.starts_at, window.ends_at ] }
+```
+
+Left out, `starts_at` is the next day holding a free window and `days` is seven. A window is
+cut to the service's own duration where `service_id` names one, to `minutes` where that is
+given, and to thirty minutes otherwise.
+
 ## Errors
 
 Everything descends from `Hcp::Error`, so one rescue still catches the lot.
