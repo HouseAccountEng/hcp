@@ -18,13 +18,13 @@ class JobsTestCase < Minitest::Test
     assert_nil unbooked.completed_at
     assert_equal 330, unbooked.amount
     assert_instance_of BigDecimal, unbooked.amount
-    assert_nil unbooked.instructions
+    assert_nil unbooked.notes
     assert_nil unbooked.quote
     assert_nil unbooked.location
     assert_equal 'job_2', booked.id
     assert_equal Time.utc(2026, 6, 27, 12), booked.completed_at
     assert_equal 'est_1', booked.quote.id
-    assert_equal "- Gate code 1234\n- Dog in the yard", booked.instructions
+    assert_equal "- Gate code 1234\n- Dog in the yard", booked.notes
     assert_equal '1 Example Street', booked.location.street
     assert_equal '90210', booked.location.zip
     assert_in_delta 34.07, booked.location.latitude

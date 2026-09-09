@@ -68,7 +68,7 @@ dollars however Housecall Pro nested it or counted it:
 ```ruby
 account.jobs.past(4.weeks).each do |job|
   job.id, job.description, job.created_at, job.scheduled_at, job.completed_at
-  job.instructions      # => "- Gate code 1234\n- Dog in the yard", the notes on the job as a list
+  job.notes             # => "- Gate code 1234\n- Dog in the yard", one to a line
   job.amount            # => 330.0, dollars as a BigDecimal, where Housecall Pro said 33000
   job.quote             # => an Hcp::Quote, the estimate the job was won with, or nil
   job.quote.amount      # => the approved option's total in dollars, read off the estimate once
