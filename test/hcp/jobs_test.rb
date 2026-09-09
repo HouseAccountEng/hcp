@@ -56,7 +56,7 @@ class JobsTestCase < Minitest::Test
 
     job = account.jobs.past(2.weeks).first
 
-    assert_equal '1 Exterior trim - Fascia repair', job.lines.sole.to_s
+    assert_equal 'Exterior trim - Fascia repair', job.lines.sole.name
     assert_equal 1, job.lines.sole.quantity
     assert_equal 330, job.lines.sole.amount
     assert_requested :get, "#{@jobs}/job_77cbcb51acb1442fa9554131d7d1f543/line_items", times: 1
