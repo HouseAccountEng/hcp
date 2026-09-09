@@ -2,7 +2,7 @@ module Hcp
   # Whoever the work is for.
   class Customer < Company::Customer
     # The node keys Housecall Pro spells otherwise than the vocabulary.
-    def self.keys = { name: :first_name }
+    def self.keys = { name: :first_name, surname: :last_name }
 
     # The numbers Housecall Pro holds for a customer, the one they are reached on first.
     NUMBERS = %i[mobile_number home_number work_number]

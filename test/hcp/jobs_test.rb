@@ -44,7 +44,7 @@ class JobsTestCase < Minitest::Test
 
     assert_equal 'cus_2', customer.id
     assert_equal 'Acme Property Management', customer.name
-    assert_nil customer.last_name
+    assert_nil customer.surname
     assert_equal 'acme@example.com', customer.email
     assert_equal '5552000002', customer.phone
   end

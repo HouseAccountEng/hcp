@@ -73,7 +73,7 @@ account.jobs.past(4.weeks).each do |job|
   job.quote             # => an Hcp::Quote, the estimate the job was won with, or nil
   job.quote.amount      # => the approved option's total in dollars, read off the estimate once
   job.location          # => an Hcp::Location, or nil where the job is booked nowhere
-  job.location.customer # => an Hcp::Customer: id, name, last_name, email, phone
+  job.location.customer # => an Hcp::Customer: id, name, surname, email, phone
   job.lines             # => Hcp::Line, read off the job's own line_items endpoint on first ask
 end
 ```
