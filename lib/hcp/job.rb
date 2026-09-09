@@ -32,6 +32,9 @@ module Hcp
     # @return [Location, nil] where the work happens, nil where the job is booked nowhere.
     def location = record Location, :location
 
+    # @return [Quote, nil] estimate the job was won with, nil where it was won without one.
+    def quote = (Quote.new node: @node[:quote], client: @client if @node[:quote])
+
   private
 
     # A job booked nowhere carries an address with no ID, which reads as none at all.
