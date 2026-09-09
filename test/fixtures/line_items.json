@@ -1,0 +1,24 @@
+{
+  "object": "list",
+  "data": [
+    {
+      "object": "line_item",
+      "id": "rli_d193fee8eb734d13acad5d7e42691333",
+      "name": "Exterior trim - Fascia repair",
+      "description": "\"Reattach or install a single piece of prebent fascia, up to 12' long on a first or second story exterior location.\n*Does not include custom fabrication of fascia.\"",
+      "unit_price": 33000,
+      "unit_cost": 50,
+      "unit_of_measure": null,
+      "quantity": 1.0,
+      "kind": "labor",
+      "taxable": true,
+      "amount": 33000,
+      "order_index": 0,
+      "service_item_id": "olit_4aefbb8aa7b54e81b03f6b02374d4d1a",
+      "service_item_type": "OrganizationalLineItemTemplate",
+      "duration_in_minutes": 120,
+      "url": "/jobs/job_77cbcb51acb1442fa9554131d7d1f543/line_items/rli_d193fee8eb734d13acad5d7e42691333"
+    }
+  ],
+  "url": "/jobs/job_77cbcb51acb1442fa9554131d7d1f543/line_items"
+}

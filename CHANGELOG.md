@@ -21,6 +21,12 @@
   `Employee`, `Schedule`, `Note`, `LineItem`, `Address`, `BookingWindow`, `Hcp::NotFound` --
   a 404 raises `Hcp::Error` -- `Hcp::TooManyRequests#reset_at` and `Hcp::Event#type`.
 
+- [Feature] `account.jobs.past(within)` walks the jobs booked to start in the window a page at a
+  time, each an `Hcp::Job` reading in the vocabulary: `scheduled_at` and `completed_at` off the
+  nested schedule and timestamps, `amount` in dollars off the cents, `quote` naming the estimate
+  the job was won with, `location` with its `customer` beside it, and `lines` read once off the
+  job's own endpoint.
+
 - [Feature] `Hcp::Error` descends from `Company::Error`, so one rescue covers every platform.
 
 ## [1.4.0] - 2026-08-28

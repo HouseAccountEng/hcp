@@ -1,8 +1,8 @@
 # The Housecall Pro API Ruby client
 
 The Housecall Pro API, answered in the vocabulary of the [company](https://github.com/claudiob/company)
-gem: a key opens an account, the account answers the business it belongs to and its leads, and
-nothing else. Where a caller reads nothing, this gem has no method.
+gem: a key opens an account, the account answers the business it belongs to, its leads and its
+jobs, and nothing else. Where a caller reads nothing, this gem has no method.
 
 ## How to install
 
@@ -59,6 +59,26 @@ account has no status for raises `Hcp::Error`:
 ```ruby
 account.leads.find('lea_1').update status_name: 'Won'
 ```
+
+## Jobs
+
+The jobs booked to start within a window are walked a page at a time, each read flat and in
+dollars however Housecall Pro nested it or counted it:
+
+```ruby
+account.jobs.past(4.weeks).each do |job|
+  job.id, job.description, job.created_at, job.scheduled_at, job.completed_at
+  job.amount            # => 330.0, dollars as a BigDecimal, where Housecall Pro said 33000
+  job.quote             # => a Company::Quote naming the estimate the job was won with, or nil
+  job.location          # => an Hcp::Location, or nil where the job is booked nowhere
+  job.location.customer # => an Hcp::Customer: id, name, last_name, email, phone
+  job.lines             # => Hcp::Line, read off the job's own line_items endpoint on first ask
+  job.summary           # => '1 Exterior trim - Fascia repair', or the description, or the ID
+end
+```
+
+A customer's `name` is their first name, or the business's where a person has none, and their
+`phone` is the first of the mobile, home and work numbers that can be dialed.
 
 ## Errors
 

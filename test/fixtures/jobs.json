@@ -1,0 +1,94 @@
+{
+  "page": 1,
+  "page_size": 1,
+  "total_pages": 3272,
+  "total_items": 3272,
+  "jobs": [
+    {
+      "id": "job_77cbcb51acb1442fa9554131d7d1f543",
+      "description": "Exterior trim - Fascia repair",
+      "notes": [],
+      "work_status": "scheduled",
+      "work_timestamps": {
+        "on_my_way_at": null,
+        "started_at": null,
+        "completed_at": null
+      },
+      "schedule": {
+        "scheduled_start": "2026-06-26T10:45:00Z",
+        "scheduled_end": "2026-06-26T12:45:00Z",
+        "time_zone": "America/New_York",
+        "scheduled_start_local": "2026-06-26T06:45:00-04:00",
+        "scheduled_end_local": "2026-06-26T08:45:00-04:00",
+        "arrival_window": 30,
+        "appointments": [
+          {
+            "id": "appt_02aad0c5d573454cae36e5fa24c839bc",
+            "start_date": null,
+            "start_time": "2026-06-26T10:45:00Z",
+            "end_time": "2026-06-26T12:45:00Z",
+            "anytime": false,
+            "arrival_window_minutes": 30,
+            "dispatched_employees_ids": []
+          }
+        ]
+      },
+      "total_amount": 33000,
+      "outstanding_balance": 33000,
+      "assigned_employees": [],
+      "tags": [],
+      "original_estimate_id": null,
+      "original_estimate_uuids": [],
+      "subtotal": 33000,
+      "lead_source": null,
+      "job_fields": {
+        "job_type": null,
+        "business_unit": null
+      },
+      "locked_at": null,
+      "created_at": "2026-06-21T13:45:35Z",
+      "updated_at": "2026-06-21T13:45:36Z",
+      "canceled_at": null,
+      "deleted_at": null,
+      "assigned_route_template_id": null,
+      "company_name": "Example Plumbing",
+      "company_id": "143e13ab-943d-483b-b9f9-14821c53c849",
+      "invoice_number": "51575153",
+      "customer": {
+        "id": "cus_06411f4c8ede416ba55bfc0604fa4f2d",
+        "first_name": "Ada",
+        "last_name": null,
+        "email": "ada@example.com",
+        "mobile_number": "5550000001",
+        "home_number": null,
+        "work_number": null,
+        "company": null,
+        "notifications_enabled": true,
+        "lead_source": "HouseAccount",
+        "notes": null,
+        "kind": "homeowner",
+        "created_at": "2026-06-21T13:43:53Z",
+        "updated_at": "2026-06-21T13:43:53Z",
+        "company_name": "Example Plumbing",
+        "company_id": "143e13ab-943d-483b-b9f9-14821c53c849",
+        "tags": []
+      },
+      "address": {
+        "id": null,
+        "type": "service",
+        "street": null,
+        "street_line_2": null,
+        "city": null,
+        "state": null,
+        "zip": null,
+        "country": null,
+        "latitude": null,
+        "longitude": null
+      },
+      "recurrence_number": null,
+      "recurrence_rule": null,
+      "recurrence_status": null,
+      "recurrence_id": null
+    }
+  ]
+}
