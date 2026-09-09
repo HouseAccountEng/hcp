@@ -31,7 +31,7 @@ class AnswerTestCase < Minitest::Test
   def test_names_a_refusal_for_rate_so_a_caller_can_come_back
     stub_read 'company', { error: 'Too many requests' }, status: 429
 
-    error = assert_raises(Hcp::TooManyRequests) { account.business }
+    error = assert_raises(Hcp::Throttled) { account.business }
 
     assert_equal 'Too many requests', error.message
   end

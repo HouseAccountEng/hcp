@@ -10,7 +10,7 @@ module Hcp
     def body
       case @response
         when Net::HTTPSuccess then parsed
-        when Net::HTTPTooManyRequests then raise TooManyRequests, message
+        when Net::HTTPTooManyRequests then raise Throttled, message
         else raise Error, message
       end
     end

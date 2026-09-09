@@ -97,7 +97,8 @@ end
 ## Errors
 
 Everything descends from `Hcp::Error`, which descends from `Company::Error`, so one rescue
-still catches the lot. `Hcp::TooManyRequests` is a refusal for rate.
+still catches the lot. `Hcp::Throttled`, a `Company::Throttled`, is a refusal for rate, so one
+retry covers every platform.
 
 Nothing here sleeps. A caller told to come back later has a queue that can bring the whole job
 back, which is worth more than a worker asleep holding a connection open.

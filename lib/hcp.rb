@@ -16,7 +16,7 @@ require 'company'
 
 require 'hcp/version'
 require 'hcp/error'
-require 'hcp/too_many_requests'
+require 'hcp/throttled'
 
 # Answer before Client, which reads one, and Client before everything that talks through it.
 require 'hcp/answer'

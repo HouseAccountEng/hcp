@@ -21,6 +21,9 @@
   `Employee`, `Schedule`, `Note`, `LineItem`, `Address`, `BookingWindow`, `Hcp::NotFound` --
   a 404 raises `Hcp::Error` -- `Hcp::TooManyRequests#reset_at` and `Hcp::Event#type`.
 
+- [Breaking change] `Hcp::TooManyRequests` is `Hcp::Throttled`, a `Company::Throttled` rather
+  than an `Hcp::Error`, so one rescue retries a refusal for rate from any platform.
+
 - [Feature] `account.jobs.past(within)` walks the jobs booked to start in the window a page at a
   time, each an `Hcp::Job` reading in the vocabulary: `scheduled_at` and `completed_at` off the
   nested schedule and timestamps, `notes` listed one to a line,
