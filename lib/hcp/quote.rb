@@ -1,25 +1,28 @@
 module Hcp
-  # A price a Housecall Pro user sent, which Housecall Pro calls an estimate.
+  # A price a Housecall Pro user sent, which Housecall Pro calls an estimate option: a job names
+  # the option it was created from, and an estimate holds one option or several.
   class Quote < Company::Quote
-    # @param node [Hash] estimate as Housecall Pro named it beside a job: its ID alone.
+    # @param node [Hash] option as Housecall Pro named it beside a job: its ID, and the customer.
     # @param client [Client] how to reach Housecall Pro for the rest of it.
     def initialize(node: {}, client:)
       super node: node
       @client = client
     end
 
-    # Housecall Pro prices an estimate by options and names it beside a job by ID alone, so
-    # what it comes to is read off the estimate itself on the first ask: the total of the
-    # option the customer approved, in dollars.
-    # @return [BigDecimal, nil] what the approved option comes to, nil where none is approved.
-    def amount = approved && BigDecimal(approved['total_amount'].to_s) / 100
+    # Housecall Pro reads an estimate by its own ID and not by an option's, so the option is
+    # found among the customer's estimates, read once on the first ask.
+    # @return [BigDecimal, nil] what the option comes to in dollars, nil where none is found.
+    def amount = option && BigDecimal(option['total_amount'].to_s) / 100
 
   private
 
-    def approved = options.find { |option| option['approval_status'] == 'approved' }
+    def option = options.find { |each| each['id'] == id }
 
-    def options = estimate.fetch 'options'
+    def options = estimates.flat_map { |estimate| estimate['options'] }
 
-    def estimate = @estimate ||= @client.get("estimates/#{id}")
+    def estimates
+      @estimates ||= @client.get('estimates', customer_id: @node.dig(:customer, :id),
+        page_size: Jobs::PAGE).fetch 'estimates'
+    end
   end
 end

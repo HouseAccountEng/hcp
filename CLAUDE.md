@@ -33,8 +33,10 @@ documented shape. What has been found so far:
 - `GET /jobs/{id}/line_items` answers `{"object":"list","data":[…]}`, not the documented
   `{url, data}`.
 - `page_size` is capped at 200. The spec publishes no maximum.
-- An estimate option's `approval_status` is read as `approved` for the one the customer took,
-  as the spec says; a live approved estimate has not been probed yet.
+- A job's `original_estimate_id` is the ID of the estimate **option** it was created from, an
+  `est_` ID. `GET /estimates/{id}` takes the estimate's own `csr_` ID and answers
+  `Estimate not found` for an option's, so an option is found by listing
+  `GET /estimates?customer_id=` and searching the options. Probed live 2026-09-09.
 
 A company-scoped key refuses `X-Company-Id` with a 401 on every endpoint, so the header can only
 be exercised with an application key. `GET /company` answers `locations` only to the latter, and

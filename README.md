@@ -70,8 +70,8 @@ account.jobs.past(4.weeks).each do |job|
   job.id, job.description, job.created_at, job.scheduled_at, job.completed_at
   job.notes             # => "- Gate code 1234\n- Dog in the yard", one to a line
   job.amount            # => 330.0, dollars as a BigDecimal, where Housecall Pro said 33000
-  job.quote             # => an Hcp::Quote, the estimate the job was won with, or nil
-  job.quote.amount      # => the approved option's total in dollars, read off the estimate once
+  job.quote             # => an Hcp::Quote, the estimate option the job was created from, or nil
+  job.quote.amount      # => that option's total in dollars, found among the customer's estimates
   job.location          # => an Hcp::Location, or nil where the job is booked nowhere
   job.location.customer # => an Hcp::Customer: id, name, surname, email, phone
   job.lines             # => Hcp::Line, read off the job's own line_items endpoint on first ask

@@ -4,17 +4,14 @@ module Hcp
     # The node keys Housecall Pro spells otherwise than the vocabulary.
     def self.keys = { amount: :total_amount }
 
-    # Housecall Pro nests when the work is booked and when it was done, names the estimate a
-    # job was won with and nothing more of it, and files the address and the customer side by
-    # side; the node is read flat, the way the vocabulary reads one.
+    # Housecall Pro nests when the work is booked and when it was done, and files the address
+    # and the customer side by side; the node is read flat, the way the vocabulary reads one.
     # @param node [Hash] job as Housecall Pro answered it.
     # @param client [Client] how to reach Housecall Pro for what the job holds elsewhere.
     def initialize(node: {}, client:)
       node = node.with_indifferent_access
       super node: node.merge(scheduled_at: node.dig(:schedule, :scheduled_start),
-        completed_at: node.dig(:work_timestamps, :completed_at),
-        quote: ({ id: node[:original_estimate_id] } if node[:original_estimate_id]),
-        location: location_from(node))
+        completed_at: node.dig(:work_timestamps, :completed_at), location: location_from(node))
       @client = client
     end
 
@@ -36,8 +33,13 @@ module Hcp
     # @return [Location, nil] where the work happens, nil where the job is booked nowhere.
     def location = record Location, :location
 
-    # @return [Quote, nil] estimate the job was won with, nil where it was won without one.
-    def quote = (Quote.new node: @node[:quote], client: @client if @node[:quote])
+    # Housecall Pro names the estimate option a job was created from beside the job, and the
+    # option is priced among the customer's estimates, so the quote takes the customer along.
+    # @return [Quote, nil] option the job was won with, nil where it was won without one.
+    def quote
+      option_id = @node[:original_estimate_id]
+      Quote.new node: { id: option_id, customer: @node[:customer] }, client: @client if option_id
+    end
 
   private
 

@@ -24,8 +24,9 @@
 - [Feature] `account.jobs.past(within)` walks the jobs booked to start in the window a page at a
   time, each an `Hcp::Job` reading in the vocabulary: `scheduled_at` and `completed_at` off the
   nested schedule and timestamps, `notes` listed one to a line,
-  `amount` in dollars off the cents, `quote` the estimate the
-  job was won with -- its `amount` the approved option's total, read once off the estimate --
+  `amount` in dollars off the cents, `quote` the estimate option
+  the job was created from -- its `amount` the option's total, found once among the customer's
+  estimates --
   `location` with its `customer` beside it, and `lines` read once off the job's own endpoint.
 
 - [Feature] `Hcp::Error` descends from `Company::Error`, so one rescue covers every platform.
