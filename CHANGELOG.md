@@ -7,7 +7,8 @@
   and `HCP_KEY` go.
 
 - [Breaking change] `Hcp::Company` is `Hcp::Business`, a `Company::Business`: `id`, `name`,
-  `phone` as ten digits and `subsidiaries`, which was `locations`. `website`, `time_zone`,
+  `phone` as ten digits and `subsidiaries`, which was `locations` and which the vocabulary
+  now lists off the locations Housecall Pro nests. `website`, `time_zone`,
   `logo_url`, `support_email`, `arrival_window`, `address` and `zip_codes` go.
 
 - [Breaking change] `Hcp::Lead.new(key:, company_id:).create` is `account.leads.create`, which

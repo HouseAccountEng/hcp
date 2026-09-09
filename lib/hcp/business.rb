@@ -4,9 +4,9 @@ module Hcp
     # The node keys Housecall Pro spells otherwise than the vocabulary.
     def self.keys = { phone: :phone_number }
 
-    # Itself first, then every location under it at any depth, in the order Housecall Pro
-    # lists them: a single company is its own one subsidiary, and a franchise reads flat.
-    # @return [Array<Business>] locations whose IDs `company_id:` takes, this one included.
-    def subsidiaries = [ self, *records(Business, :locations).flat_map(&:subsidiaries) ]
+  private
+
+    # Housecall Pro lists the locations under a business only to an application key.
+    def below = records Business, :locations
   end
 end
