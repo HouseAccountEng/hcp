@@ -50,13 +50,13 @@ class JobsTestCase < Minitest::Test
   end
 
   # Housecall Pro files the lines under their own endpoint, so a job reads them once, on the
-  # first ask, whether that ask is for the lines or for what they add up to.
+  # first ask, however many times it is asked.
   def test_reads_the_lines_off_their_own_endpoint_once
     stub_read 'jobs/job_77cbcb51acb1442fa9554131d7d1f543/line_items', fixture('line_items')
 
     job = account.jobs.past(2.weeks).first
 
-    assert_equal '1 Exterior trim - Fascia repair', job.summary
+    assert_equal '1 Exterior trim - Fascia repair', job.lines.sole.to_s
     assert_equal 1, job.lines.sole.quantity
     assert_equal 330, job.lines.sole.amount
     assert_requested :get, "#{@jobs}/job_77cbcb51acb1442fa9554131d7d1f543/line_items", times: 1

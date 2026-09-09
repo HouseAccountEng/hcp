@@ -75,7 +75,6 @@ account.jobs.past(4.weeks).each do |job|
   job.location          # => an Hcp::Location, or nil where the job is booked nowhere
   job.location.customer # => an Hcp::Customer: id, name, last_name, email, phone
   job.lines             # => Hcp::Line, read off the job's own line_items endpoint on first ask
-  job.summary           # => '1 Exterior trim - Fascia repair', or the description, or the ID
 end
 ```
 
