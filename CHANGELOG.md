@@ -23,7 +23,8 @@
 
 - [Feature] `account.jobs.past(within)` walks the jobs booked to start in the window a page at a
   time, each an `Hcp::Job` reading in the vocabulary: `scheduled_at` and `completed_at` off the
-  nested schedule and timestamps, `amount` in dollars off the cents, `quote` the estimate the
+  nested schedule and timestamps, `instructions` as the notes on the job listed one to a line,
+  `amount` in dollars off the cents, `quote` the estimate the
   job was won with -- its `amount` the approved option's total, read once off the estimate --
   `location` with its `customer` beside it, and `lines` read once off the job's own endpoint.
 

@@ -18,6 +18,11 @@ module Hcp
       @client = client
     end
 
+    # Housecall Pro holds no instructions on a job, only the notes written on it, which read as
+    # a list, one to a line.
+    # @return [String, nil] every note's content, `- ` before each, nil where none was written.
+    def instructions = Array(@node[:notes]).map { |note| "- #{note[:content]}" }.join("\n").presence
+
     # Housecall Pro counts in cents, and a caller reads dollars.
     # @return [BigDecimal, nil] what the job comes to.
     def amount = (cents = super) && cents / 100

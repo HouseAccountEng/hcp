@@ -24,6 +24,7 @@ class JobsTestCase < Minitest::Test
     assert_equal 'job_2', booked.id
     assert_equal Time.utc(2026, 6, 27, 12), booked.completed_at
     assert_equal 'est_1', booked.quote.id
+    assert_equal "- Gate code 1234\n- Dog in the yard", booked.instructions
     assert_equal '1 Example Street', booked.location.street
     assert_equal '90210', booked.location.zip
     assert_in_delta 34.07, booked.location.latitude
@@ -72,6 +73,7 @@ private
     { id: 'job_2', description: 'Paint the fence', total_amount: 12_000,
       schedule: { scheduled_start: '2026-06-27T10:00:00Z' },
       work_timestamps: { completed_at: '2026-06-27T12:00:00Z' }, original_estimate_id: 'est_1',
+      notes: [ { content: 'Gate code 1234' }, { content: 'Dog in the yard' } ],
       address: { id: 'adr_1', street: '1 Example Street', city: 'Beverly Hills', state: 'CA',
                  zip: '90210', latitude: 34.07, longitude: -118.4, },
       customer: { id: 'cus_2', first_name: nil, last_name: nil, company: 'Acme Property Management',
