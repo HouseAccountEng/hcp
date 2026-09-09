@@ -50,7 +50,7 @@ Opening a lead opens its customer with it, and hands back what Housecall Pro fil
 lead = account.leads.create name: 'Ada', phone: '5550000001', email: 'ada@example.com',
   address: { street: '1 Example Street', city: 'Springfield', state: 'CA', zip: '90210' },
   note: 'Very interested in buying', source: 'The Lead Generator'
-lead.id, lead.customer_id
+lead.id, lead.customer.id
 ```
 
 Moving a lead through the pipeline names the status as the account names it; a name the

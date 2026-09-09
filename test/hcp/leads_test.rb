@@ -18,7 +18,7 @@ class LeadsTestCase < Minitest::Test
       phone: '5550000001', address: nil, source: 'A Sign', note: 'Wants a quote'
 
     assert_equal 'lea_1', lead.id
-    assert_equal 'cus_1', lead.customer_id
+    assert_equal 'cus_1', lead.customer.id
   end
 
   def test_raises_where_housecall_would_not_open_one

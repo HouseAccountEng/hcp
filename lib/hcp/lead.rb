@@ -8,10 +8,6 @@ module Hcp
       @client = client
     end
 
-    # Housecall Pro files the customer beside the lead rather than by ID.
-    # @return [String, nil] ID of the customer opened with the lead.
-    def customer_id = @node.dig :customer, :id
-
     # Moves the lead to the status going by this name. Housecall Pro moves a lead by status ID
     # and names them only by their words, so the status is looked up first.
     # @param status_name [String] status as the account names it, such as 'Won'.
