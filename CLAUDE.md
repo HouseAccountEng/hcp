@@ -25,18 +25,11 @@ The authoritative OpenAPI spec is at
 docs.housecallpro.com renders it client-side, so fetching that HTML gets nothing worth reading.
 
 **The spec disagrees with the live API.** Send a real request before writing code against a
-documented shape. Six disagreements found so far, each of which would have shipped a bug:
+documented shape. What has been found so far:
 
-- `page_size` is capped at 200. The spec publishes no maximum.
-- `GET /jobs/{id}/line_items` answers `{"object":"list","data":[…]}`, not the documented
-  `{url, data}`.
-- A refusal comes back three ways — `{"error":{"message":…}}`, `{"error":"…"}` and `{"message":…}`.
+- A refusal comes back three ways -- `{"error":{"message":…}}`, `{"error":"…"}` and `{"message":…}`.
   The spec describes only the first.
-- An unknown filter is **ignored, not refused**, so a typo answers the whole account rather than a
-  page of it. This is why the gem checks condition names itself.
-- `GET /company` answers `default_arrival_window` as an integer. The spec publishes it as a string.
-- `GET /company` stamps an address's `latitude` and `longitude` as **strings**, where
-  `GET /customers/{id}/addresses` answers the same fields as numbers.
+- `PUT /pipeline/statuses` is answered with an empty body.
 
 A company-scoped key refuses `X-Company-Id` with a 401 on every endpoint, so the header can only
 be exercised with an application key. `GET /company` answers `locations` only to the latter, and

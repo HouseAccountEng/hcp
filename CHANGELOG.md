@@ -1,5 +1,27 @@
 ## [Unreleased]
 
+## [2.0.0] - 2026-09-09
+
+- [Breaking change] The key is one account's: `Hcp::Account.new(key:, company_id:)`, a
+  `Company::Account`, answers `business` and `leads`. `Hcp.key`, `Hcp.with_key`, `Hcp::Access`
+  and `HCP_KEY` go.
+
+- [Breaking change] `Hcp::Company` is `Hcp::Business`, a `Company::Business`: `id`, `name`,
+  `phone` as ten digits and `subsidiaries`, which was `locations`. `website`, `time_zone`,
+  `logo_url`, `support_email`, `arrival_window`, `address` and `zip_codes` go.
+
+- [Breaking change] `Hcp::Lead.new(key:, company_id:).create` is `account.leads.create`, which
+  names its keywords and answers the lead; `Hcp::Lead::Pipeline` is
+  `account.leads.find(id).update(status_name:)`. Writes go through the same plumbing as reads,
+  so a refusal is read the three ways Housecall Pro writes one.
+
+- [Breaking change] Gone, unread by any caller: `Relation`, `Chainable`, `Queryable`, `Filter`,
+  `Job`, `Job::Appointment`, `Job::Invoice`, `Estimate`, `Estimate::Option`, `Customer`,
+  `Employee`, `Schedule`, `Note`, `LineItem`, `Address`, `BookingWindow`, `Hcp::NotFound` --
+  a 404 raises `Hcp::Error` -- `Hcp::TooManyRequests#reset_at` and `Hcp::Event#type`.
+
+- [Feature] `Hcp::Error` descends from `Company::Error`, so one rescue covers every platform.
+
 ## [1.4.0] - 2026-08-28
 
 - [Feature] Read as a key for one block, on one thread: `Hcp.with_key(key, company_id:)`,
