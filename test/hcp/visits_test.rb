@@ -24,6 +24,15 @@ class VisitsTestCase < Minitest::Test
     assert_equal 'Ada', visits.sole.job.location.customer.name
   end
 
+  def test_reads_every_visit_there_ever_was_where_nothing_narrows_the_list
+    visits = account.visits.to_a
+
+    assert_equal %w[appt_1 appt_2], visits.map(&:id)
+    assert_requested(:get, @jobs, query: hash_including(page: '1'), times: 1) do |request|
+      request.uri.query_values.keys.none? { |key| key.start_with? 'scheduled_' }
+    end
+  end
+
   def test_asks_for_the_jobs_booked_across_the_window_with_their_appointments
     account.visits.upcoming(2.weeks).first
 

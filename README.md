@@ -85,7 +85,8 @@ A customer's `name` is their first name, or the business's where a person has no
 
 Housecall Pro calls a visit an appointment and files it inside a job, so the visits booked to
 start within a window are read off the jobs booked across it, a page of jobs at a time, each
-saying what its job says and carrying it. A job called off keeps its visits to itself.
+saying what its job says and carrying it. A job called off keeps its visits to itself, and a
+list nothing narrows walks every job there was.
 
 ```ruby
 account.visits.upcoming(2.weeks).each do |visit|

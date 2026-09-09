@@ -5,8 +5,8 @@ module Hcp
     include Enumerable
 
     # @param client [Client] how to reach Housecall Pro as the location.
-    # @param from [Time, nil] the moment the window opens.
-    # @param to [Time, nil] the moment the window closes.
+    # @param from [Time, nil] the moment the window opens, or nothing for every visit there was.
+    # @param to [Time, nil] the moment the window closes, or nothing for every visit to come.
     def initialize(client:, from: nil, to: nil)
       @client = client
       @from = from
@@ -28,15 +28,18 @@ module Hcp
       jobs.each do |job|
         next if job.canceled?
 
-        job.visits.each { |visit| yield visit if (@from..@to).cover? visit.starts_at }
+        job.visits.each { |visit| yield visit if window.cover? visit.starts_at }
       end
     end
 
   private
 
+    # Open at either end where the list was not narrowed there.
+    def window = @from..@to
+
     def jobs
-      Jobs.new client: @client, params: { scheduled_end_min: @from.utc.iso8601,
-        scheduled_start_max: @to.utc.iso8601, expand: [ 'appointments' ], }
+      bounds = { scheduled_end_min: @from&.utc&.iso8601, scheduled_start_max: @to&.utc&.iso8601 }
+      Jobs.new client: @client, params: bounds.compact.merge(expand: [ 'appointments' ])
     end
   end
 end
