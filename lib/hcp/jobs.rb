@@ -7,10 +7,10 @@ module Hcp
     PAGE = 200
 
     # @param client [Client] how to reach Housecall Pro as the location.
-    # @param window [Hash] when the jobs are booked to start, as Housecall Pro filters them.
-    def initialize(client:, window: {})
+    # @param params [Hash] what the list is narrowed to, as Housecall Pro filters jobs.
+    def initialize(client:, params: {})
       @client = client
-      @window = window
+      @params = params
     end
 
     # @param within [ActiveSupport::Duration] how far back to look.
@@ -18,7 +18,7 @@ module Hcp
     #   and before now.
     def past(within)
       now = Time.now
-      self.class.new client: @client, window: { scheduled_start_min: (now - within).utc.iso8601,
+      self.class.new client: @client, params: { scheduled_start_min: (now - within).utc.iso8601,
                                                 scheduled_start_max: now.utc.iso8601, }
     end
 
@@ -26,7 +26,7 @@ module Hcp
     # @yield [Job] each job in the window, in the order Housecall Pro lists them.
     def each
       (1..).each do |page|
-        body = @client.get 'jobs', @window.merge(page: page, page_size: PAGE)
+        body = @client.get 'jobs', @params.merge(page: page, page_size: PAGE)
         body.fetch('jobs').each { |node| yield Job.new node: node, client: @client }
         break if page >= body.fetch('total_pages')
       end

@@ -33,6 +33,10 @@ documented shape. What has been found so far:
 - `GET /jobs/{id}/line_items` answers `{"object":"list","data":[…]}`, not the documented
   `{url, data}`.
 - `page_size` is capped at 200. The spec publishes no maximum.
+- A job answers `schedule.appointments` only with `expand[]=appointments`, and `expand` must be
+  sent as an array: a bare string is refused. A job's `scheduled_start` and `scheduled_end`
+  are computed from its appointments, so a job booked across a window carries every
+  appointment in it. An appointment has no address of its own.
 - A job's `original_estimate_id` is the ID of the estimate **option** it was created from, an
   `est_` ID. `GET /estimates/{id}` takes the estimate's own `csr_` ID and answers
   `Estimate not found` for an option's, so an option is found by listing

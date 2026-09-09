@@ -33,6 +33,18 @@ module Hcp
     # @return [Location, nil] where the work happens, nil where the job is booked nowhere.
     def location = record Location, :location
 
+    # Housecall Pro nests the appointments under the schedule, and only where the list was
+    # asked to bring them: each is a stop at the job's place, saying what the job says.
+    # @return [Array<Visit>] stops the job is booked as, empty where none came back.
+    def visits
+      Array(@node.dig :schedule, :appointments).map do |appointment|
+        Visit.new node: appointment.merge(description: description, location: @node[:location])
+      end
+    end
+
+    # @return [Boolean] whether the customer or the pro called the job off.
+    def canceled? = attribute(:work_status).to_s.end_with? 'canceled'
+
     # Housecall Pro names the estimate option a job was created from beside the job, and the
     # option is priced among the customer's estimates, so the quote takes the customer along.
     # @return [Quote, nil] option the job was won with, nil where it was won without one.

@@ -13,6 +13,9 @@ module Hcp
     # @return [Jobs] jobs of the location, walked a page at a time.
     def jobs = Jobs.new client: @client
 
+    # @return [Visits] visits of the location, read off its jobs.
+    def visits = Visits.new client: @client
+
     # @return [Leads] leads of the location, to open and to move.
     def leads = Leads.new client: @client
   end

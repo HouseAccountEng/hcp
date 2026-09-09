@@ -29,6 +29,11 @@
   estimates --
   `location` with its `customer` beside it, and `lines` read once off the job's own endpoint.
 
+- [Feature] `account.visits.upcoming(within)` walks the visits booked to start in the window,
+  which Housecall Pro calls appointments and files inside jobs: the jobs booked across the
+  window are read with their appointments, a canceled job's are skipped, and each `Hcp::Visit`
+  answers `starts_at`, `ends_at`, `anytime?`, its job's `description` and `location`.
+
 - [Feature] `Hcp::Error` descends from `Company::Error`, so one rescue covers every platform.
 
 ## [1.4.0] - 2026-08-28

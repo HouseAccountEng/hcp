@@ -81,6 +81,19 @@ end
 A customer's `name` is their first name, or the business's where a person has none, and their
 `phone` is the first of the mobile, home and work numbers that can be dialed.
 
+## Visits
+
+Housecall Pro calls a visit an appointment and files it inside a job, so the visits booked to
+start within a window are read off the jobs booked across it, a page of jobs at a time, each at
+its job's place and saying what the job says. A job called off keeps its visits to itself.
+
+```ruby
+account.visits.upcoming(2.weeks).each do |visit|
+  visit.id, visit.description, visit.starts_at, visit.ends_at, visit.anytime?
+  visit.location, visit.location.customer
+end
+```
+
 ## Errors
 
 Everything descends from `Hcp::Error`, which descends from `Company::Error`, so one rescue
