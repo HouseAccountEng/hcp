@@ -32,7 +32,7 @@
 - [Feature] `account.visits.upcoming(within)` walks the visits booked to start in the window,
   which Housecall Pro calls appointments and files inside jobs: the jobs booked across the
   window are read with their appointments, a canceled job's are skipped, and each `Hcp::Visit`
-  answers `starts_at`, `ends_at`, `anytime?`, its job's `description` and `location`.
+  answers `starts_at`, `ends_at`, `anytime?`, its job's `description` and the `job` itself.
 
 - [Feature] `Hcp::Error` descends from `Company::Error`, so one rescue covers every platform.
 

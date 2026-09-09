@@ -84,13 +84,13 @@ A customer's `name` is their first name, or the business's where a person has no
 ## Visits
 
 Housecall Pro calls a visit an appointment and files it inside a job, so the visits booked to
-start within a window are read off the jobs booked across it, a page of jobs at a time, each at
-its job's place and saying what the job says. A job called off keeps its visits to itself.
+start within a window are read off the jobs booked across it, a page of jobs at a time, each
+saying what its job says and carrying it. A job called off keeps its visits to itself.
 
 ```ruby
 account.visits.upcoming(2.weeks).each do |visit|
   visit.id, visit.description, visit.starts_at, visit.ends_at, visit.anytime?
-  visit.location, visit.location.customer
+  visit.job              # => the Hcp::Job the stop belongs to, its location and customer along
 end
 ```
 

@@ -11,7 +11,7 @@ class VisitsTestCase < Minitest::Test
       to_return body: { total_pages: 1, jobs: [ booked_job, canceled_job ] }.to_json
   end
 
-  def test_reads_every_visit_booked_in_the_window_at_its_jobs_place
+  def test_reads_every_visit_booked_in_the_window_with_its_job
     visits = account.visits.upcoming(2.weeks).to_a
 
     assert_equal [ 'appt_1' ], visits.map(&:id)
@@ -19,8 +19,9 @@ class VisitsTestCase < Minitest::Test
     assert_equal Time.at((@now + 1.day).to_i), visits.sole.starts_at
     assert_equal Time.at((@now + 1.day + 2.hours).to_i), visits.sole.ends_at
     refute visits.sole.anytime?
-    assert_equal '1 Example Street', visits.sole.location.street
-    assert_equal 'Ada', visits.sole.location.customer.name
+    assert_equal 'job_1', visits.sole.job.id
+    assert_equal '1 Example Street', visits.sole.job.location.street
+    assert_equal 'Ada', visits.sole.job.location.customer.name
   end
 
   def test_asks_for_the_jobs_booked_across_the_window_with_their_appointments
