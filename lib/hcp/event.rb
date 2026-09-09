@@ -8,12 +8,9 @@ module Hcp
     TIMESTAMP_HEADER = 'Api-Timestamp'
 
     # @param params [Hash] the payload for an event webhook.
-    def initialize(params = {})
+    def initialize(params)
       @params = params
     end
-
-    # @return [Symbol] the type of event, e.g.: :lead_converted, :job_created, :invoice_sent.
-    def type = @params.fetch(:event, '').gsub('.', '_').to_sym
 
     # @return [String] unique identifier of the lead in a :lead_converted event.
     def lead_id = @params.dig :lead, :id

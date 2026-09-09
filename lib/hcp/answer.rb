@@ -1,20 +1,16 @@
 module Hcp
   # What Housecall Pro answered: the body it carries, or the refusal it stands for.
   class Answer
-    # The header Housecall Pro names the epoch a rate limit lifts at.
-    RESET_HEADER = 'RateLimit-Reset'
-
     # @param response [Net::HTTPResponse] what Housecall Pro sent back.
     def initialize(response)
       @response = response
     end
 
-    # @return [Hash] the record or page Housecall Pro answered with.
+    # @return [Hash, nil] record Housecall Pro answered with, or nothing where it sent none.
     def body
       case @response
         when Net::HTTPSuccess then parsed
-        when Net::HTTPNotFound then raise NotFound, message
-        when Net::HTTPTooManyRequests then raise TooManyRequests.new(message, reset_at)
+        when Net::HTTPTooManyRequests then raise TooManyRequests, message
         else raise Error, message
       end
     end
@@ -28,8 +24,7 @@ module Hcp
       error.is_a?(Hash) ? error['message'] : error
     end
 
-    def reset_at = (Time.at Integer(@response[RESET_HEADER]) if @response[RESET_HEADER])
-
-    def parsed = @parsed ||= JSON(@response.body)
+    # A PUT is answered with no body at all.
+    def parsed = @parsed ||= (JSON @response.body if @response.body.present?)
   end
 end

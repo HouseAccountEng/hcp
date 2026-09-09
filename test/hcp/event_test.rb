@@ -8,7 +8,6 @@ class EventTestCase < Minitest::Test
       schedule: { scheduled_start: '2026-06-26T10:45:00Z' },
       work_timestamps: { completed_at: '2026-06-26T12:45:00Z' }, }
 
-    assert_equal :job_scheduled, event.type
     assert_equal 'job_1', event.job_id
     assert_equal 'cus_1', event.customer_id
     assert_equal 'csr_1', event.estimate_id
@@ -20,7 +19,6 @@ class EventTestCase < Minitest::Test
     event = Hcp::Event.new event: 'lead.converted', lead: { id: 'lea_1',
       customer: { id: 'cus_1' }, conversions: [ { 'type' => 'Estimate', 'id' => 'csr_1' } ], }
 
-    assert_equal :lead_converted, event.type
     assert_equal 'lea_1', event.lead_id
     assert_equal :estimate, event.conversion_type
     assert_equal 'csr_1', event.conversion_id
@@ -40,9 +38,5 @@ class EventTestCase < Minitest::Test
     event = Hcp::Event.new event: 'estimate.sent', estimate: { id: 'csr_1' }
 
     assert_equal 'csr_1', event.estimate_id
-  end
-
-  def test_names_no_event_where_housecall_sent_none
-    assert_empty Hcp::Event.new.type.to_s
   end
 end

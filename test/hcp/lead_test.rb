@@ -1,39 +1,44 @@
 require 'test_helper'
 
 class LeadTestCase < Minitest::Test
-  # A lead is written with a key handed in per call, as everything was before the key
-  # became global.
+  # Housecall Pro moves a lead by status ID, and names them only by their words, so the
+  # status has to be looked up before it can be set.
   def setup
-    @lead = Hcp::Lead.new key: 'lead-key', company_id: 'loc_1'
+    @lead = account.leads.find 'lea_1'
+    @statuses = "#{HousecallStubs::HOST}/pipeline/statuses"
   end
 
-  def test_opens_a_lead_and_keeps_what_housecall_filed_it_under
-    stub_request(:post, 'https://api.housecallpro.com/leads').
-      with(body: { customer: { first_name: 'Ada', email: 'ada@example.com',
-        mobile_number: '5550000001', lead_source: 'A Sign', }, lead_source: 'A Sign',
-        note: 'Wants a quote', }, headers: { 'Authorization' => 'Token lead-key',
-        'X-Company-Id' => 'loc_1', }).
-      to_return body: { id: 'lea_1', customer: { id: 'cus_1' } }.to_json
-
-    @lead.create name: 'Ada', email: 'ada@example.com', phone: '5550000001',
-      source: 'A Sign', note: 'Wants a quote'
-
+  def test_finds_a_lead_without_reaching_housecall
     assert_equal 'lea_1', @lead.id
-    assert_equal 'cus_1', @lead.customer_id
   end
 
-  def test_raises_where_housecall_would_not_open_one
-    stub_request(:post, 'https://api.housecallpro.com/leads').
-      to_return status: 422, body: 'Lead source not found'
+  # Housecall Pro answers the move with no body at all.
+  def test_moves_a_lead_to_the_status_that_goes_by_that_name
+    stub_read 'pipeline/statuses', { statuses: [ { id: 'sta_1', name: 'Won' } ] },
+      query: { resource_type: 'lead' }
+    moved = stub_request(:put, @statuses).
+      with body: { resource_type: 'lead', resource_id: 'lea_1', status_id: 'sta_1' }
 
-    error = assert_raises(Hcp::Error) { @lead.create name: 'Ada' }
+    @lead.update status_name: 'Won'
 
-    assert_equal 'Lead source not found', error.message
+    assert_requested moved
   end
 
-  def test_raises_where_housecall_cannot_be_reached_at_all
-    stub_request(:post, 'https://api.housecallpro.com/leads').to_raise Errno::ECONNREFUSED
+  def test_raises_where_the_account_has_no_status_going_by_that_name
+    stub_read 'pipeline/statuses', { statuses: [] }, query: { resource_type: 'lead' }
 
-    assert_raises(Hcp::Error) { @lead.create name: 'Ada' }
+    error = assert_raises(Hcp::Error) { @lead.update status_name: 'Won' }
+
+    assert_equal 'Status Won not found for lead lea_1', error.message
+  end
+
+  def test_raises_where_housecall_refuses_the_move
+    stub_read 'pipeline/statuses', { statuses: [ { id: 'sta_1', name: 'Won' } ] },
+      query: { resource_type: 'lead' }
+    stub_request(:put, @statuses).to_return status: 422, body: { error: 'Not allowed' }.to_json
+
+    error = assert_raises(Hcp::Error) { @lead.update status_name: 'Won' }
+
+    assert_equal 'Not allowed', error.message
   end
 end

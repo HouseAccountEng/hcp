@@ -1,5 +1,5 @@
-# Ruby client for the Housecall Pro API.
+# The Housecall Pro API, answered in the vocabulary of the company gem.
 module Hcp
-  # Current version of the gem.
-  VERSION = '1.4.0'
+  # The version of this gem, as RubyGems knows it.
+  VERSION = '2.0.0'
 end

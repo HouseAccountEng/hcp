@@ -1,44 +1,30 @@
 module Hcp
-  # Somebody who asked a Housecall Pro user for work, before there is a job.
-  class Lead
-    include Keyed
-
-    attr_reader :id, :customer_id
-
-    def initialize(id: nil, customer_id: nil, key:, company_id:)
-      @id = id
-      @key = key
-      @company_id = company_id
-      @customer_id = customer_id
+  # Somebody who asked a Housecall Pro user for work, and where they sit in the pipeline.
+  class Lead < Company::Lead
+    # @param node [Hash] lead as Housecall Pro answered it.
+    # @param client [Client] how to reach Housecall Pro as the lead's location.
+    def initialize(node: {}, client:)
+      super node: node
+      @client = client
     end
 
-    # Opens the lead on Housecall Pro, and keeps what it filed the lead and customer under.
-    # @param params [Hash] :name, :email, :phone, :address, :note and :source.
-    def create(params = {})
-      response = Net::HTTP.post uri, lead_for(params).to_json, headers
-      raise Error, response.body unless response.is_a? Net::HTTPSuccess
-      body = JSON response.body
-      @id, @customer_id = body['id'], body.dig('customer', 'id')
-    rescue Errno::ECONNREFUSED => error
-      raise Error, error
+    # Housecall Pro files the customer beside the lead rather than by ID.
+    # @return [String, nil] ID of the customer opened with the lead.
+    def customer_id = @node.dig :customer, :id
+
+    # Moves the lead to the status going by this name. Housecall Pro moves a lead by status ID
+    # and names them only by their words, so the status is looked up first.
+    # @param status_name [String] status as the account names it, such as 'Won'.
+    def update(status_name:)
+      status = statuses.find { |each| each['name'] == status_name } || unknown(status_name)
+      @client.put 'pipeline/statuses',
+        resource_type: 'lead', resource_id: id, status_id: status['id']
     end
 
   private
 
-    def lead_for(params = {})
-      {
-        customer: customer_for(params), address: params[:address],
-        lead_source: params[:source], note: params[:note],
-      }.compact_blank
-    end
+    def statuses = @client.get('pipeline/statuses', resource_type: 'lead').fetch 'statuses'
 
-    def customer_for(params = {})
-      {
-        first_name: params[:name], email: params[:email],
-        mobile_number: params[:phone], lead_source: params[:source],
-      }.compact_blank
-    end
-
-    def uri = URI 'https://api.housecallpro.com/leads'
+    def unknown(name) = raise Error, "Status #{name} not found for lead #{id}"
   end
 end
