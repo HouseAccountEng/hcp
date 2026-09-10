@@ -52,7 +52,6 @@ module Hcp
   private
 
     def location_from(node)
-      # A job booked nowhere carries an address with no ID, which reads as none at all.
       node[:address].merge customer: node[:customer] if node.dig(:address, :id).present?
     end
   end

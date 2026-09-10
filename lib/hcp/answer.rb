@@ -18,15 +18,10 @@ module Hcp
   private
 
     def message
-      # Housecall Pro writes a refusal three ways: the message under an `error`, the message as
-      # the `error`, and the message on its own.
       error = parsed['error'] || parsed['message']
       error.is_a?(Hash) ? error['message'] : error
     end
 
-    def parsed
-      # A PUT is answered with no body at all.
-      @parsed ||= (JSON @response.body if @response.body.present?)
-    end
+    def parsed = @parsed ||= (JSON @response.body if @response.body.present?)
   end
 end

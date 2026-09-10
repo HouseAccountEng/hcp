@@ -31,7 +31,6 @@ module Hcp
     def uri(path, query = {}) = URI [ "#{HOST}/#{path}", query.to_query ].compact_blank.join('?')
 
     def headers
-      # The account a key belongs to refuses X-Company-Id, so it is only sent for a location.
       {
         'Authorization' => "Token #{@key}",
         'Content-Type' => 'application/json',
