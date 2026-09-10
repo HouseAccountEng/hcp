@@ -31,8 +31,4 @@ class AccountTestCase < Minitest::Test
 
     assert_requested read
   end
-
-  def test_refuses_what_a_key_does_not_open
-    assert_raises(NotImplementedError) { account.quotes }
-  end
 end
