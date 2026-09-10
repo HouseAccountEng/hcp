@@ -1,9 +1,7 @@
 module Hcp
   # The visits of one location, which Housecall Pro calls appointments and files inside jobs:
   # they are read off the jobs booked across a window, a page of jobs at a time.
-  class Visits
-    include Enumerable
-
+  class Visits < Company::Collection
     # @param client [Client] how to reach Housecall Pro as the location.
     # @param from [Time, nil] the moment the window opens, or nothing for every visit there was.
     # @param to [Time, nil] the moment the window closes, or nothing for every visit to come.
@@ -13,13 +11,10 @@ module Hcp
       @to = to
     end
 
-    # @param within [ActiveSupport::Duration] how far ahead to look.
-    # @return [Visits] the same list, narrowed to the visits booked to start from now on and
-    #   that far ahead at most.
-    def upcoming(within)
-      now = Time.now
-      self.class.new client: @client, from: now, to: now + within
-    end
+    # @param from [Time, nil] the moment the window opens, or nothing for every visit there was.
+    # @param to [Time, nil] the moment the window closes, or nothing for every visit to come.
+    # @return [Visits] the same list, narrowed to the visits booked to start between the two.
+    def between(from, to) = self.class.new(client: @client, from: from, to: to)
 
     # A job booked across the window carries every visit in it, so the jobs are read once and
     # a canceled job's visits are left where they are.

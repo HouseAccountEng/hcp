@@ -1,8 +1,6 @@
 module Hcp
   # The jobs of one location, walked a page at a time.
-  class Jobs
-    include Enumerable
-
+  class Jobs < Company::Collection
     # Jobs a page: the most Housecall Pro answers with, and more than it refuses.
     PAGE = 200
 
@@ -13,13 +11,12 @@ module Hcp
       @params = params
     end
 
-    # @param within [ActiveSupport::Duration] how far back to look.
-    # @return [Jobs] the same list, narrowed to the jobs booked to start that long ago at most
-    #   and before now.
-    def past(within)
-      now = Time.now
-      self.class.new client: @client, params: { scheduled_start_min: (now - within).utc.iso8601,
-                                                scheduled_start_max: now.utc.iso8601, }
+    # @param from [Time, nil] the moment the window opens, or nothing for as far back as it goes.
+    # @param to [Time, nil] the moment the window closes, or nothing for as far ahead as it goes.
+    # @return [Jobs] the same list, narrowed to the jobs booked to start between the two.
+    def between(from, to)
+      bounds = { scheduled_start_min: from&.utc&.iso8601, scheduled_start_max: to&.utc&.iso8601 }
+      self.class.new client: @client, params: bounds.compact
     end
 
     # Nothing is read until the walk starts, and a page only once the one before it runs out.
