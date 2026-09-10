@@ -47,9 +47,10 @@ and is never empty, and each `id` in it is what `company_id:` takes.
 Opening a lead opens its customer with it, and hands back what Housecall Pro filed both under:
 
 ```ruby
-lead = account.leads.create name: 'Ada', phone: '5550000001', email: 'ada@example.com',
+lead = account.leads.create name: 'Ada', surname: 'Lovelace', phone: '5550000001',
+  email: 'ada@example.com', description: 'Fix the sink', notes: 'Very interested in buying',
   address: { street: '1 Example Street', city: 'Springfield', state: 'CA', zip: '90210' },
-  note: 'Very interested in buying', source: 'The Lead Generator'
+  source: 'The Lead Generator'
 lead.id, lead.customer.id
 ```
 

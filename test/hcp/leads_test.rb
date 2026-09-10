@@ -8,14 +8,15 @@ class LeadsTestCase < Minitest::Test
   # A blank address and a blank field are left out rather than sent as null.
   def test_opens_a_lead_and_hands_it_back_with_what_housecall_filed_it_under
     stub_request(:post, @leads).
-      with(body: { customer: { first_name: 'Ada', email: 'ada@example.com',
+      with(body: { customer: { first_name: 'Ada', last_name: 'Lovelace', email: 'ada@example.com',
         mobile_number: '5550000001', lead_source: 'A Sign', }, lead_source: 'A Sign',
-        note: 'Wants a quote', }, headers: { 'Authorization' => 'Token test-key',
+        note: "Fix the sink\nWants a quote", }, headers: { 'Authorization' => 'Token test-key',
         'X-Company-Id' => 'loc_1', }).
       to_return body: { id: 'lea_1', customer: { id: 'cus_1' } }.to_json
 
-    lead = account(company_id: 'loc_1').leads.create name: 'Ada', email: 'ada@example.com',
-      phone: '5550000001', address: nil, source: 'A Sign', note: 'Wants a quote'
+    lead = account(company_id: 'loc_1').leads.create name: 'Ada', surname: 'Lovelace',
+      email: 'ada@example.com', phone: '5550000001', address: nil, description: 'Fix the sink',
+      notes: 'Wants a quote', source: 'A Sign'
 
     assert_equal 'lea_1', lead.id
     assert_equal 'cus_1', lead.customer.id
@@ -39,6 +40,7 @@ class LeadsTestCase < Minitest::Test
 private
 
   def create_lead
-    account.leads.create name: 'Ada', email: nil, phone: nil, address: nil, source: nil, note: nil
+    account.leads.create name: 'Ada', surname: nil, email: nil, phone: nil, address: nil,
+      description: 'Fix the sink', notes: nil, source: nil
   end
 end

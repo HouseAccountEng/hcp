@@ -12,7 +12,8 @@
   `logo_url`, `support_email`, `arrival_window`, `address` and `zip_codes` go.
 
 - [Breaking change] `Hcp::Lead.new(key:, company_id:).create` is `account.leads.create`, which
-  names its keywords and answers the lead; `Hcp::Lead::Pipeline` is
+  takes the vocabulary's words -- `name:`, `surname:`, `phone:`, `email:`, `address:`,
+  `description:`, `notes:`, `source:`, the description heading the note -- and answers the lead; `Hcp::Lead::Pipeline` is
   `account.leads.find(id).update(status_name:)`. Writes go through the same plumbing as reads,
   so a refusal is read the three ways Housecall Pro writes one.
 
