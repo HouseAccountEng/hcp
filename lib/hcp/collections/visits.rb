@@ -29,7 +29,6 @@ module Hcp
 
   private
 
-    # Open at either end where the list was not narrowed there.
     def window = @from..@to
 
     def jobs

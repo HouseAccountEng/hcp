@@ -47,10 +47,8 @@ module Hcp
 
   private
 
-    # @return [Hash] the latest conversion, applies to 'lead.converted' events.
     def conversion = @params.dig(:lead, :conversions).last
 
-    # @return [Symbol] the type of resource affected by the event, can be :lead or :job.
     def resource_type = @params[:event].split('.').first.to_sym
   end
 end

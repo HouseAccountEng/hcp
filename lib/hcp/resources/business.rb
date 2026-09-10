@@ -6,7 +6,6 @@ module Hcp
 
   private
 
-    # Housecall Pro lists the locations under a business only to an application key.
     def below = records Business, :locations
   end
 end
