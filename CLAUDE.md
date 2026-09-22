@@ -63,6 +63,12 @@ Read off the spec but **not probed**, so treat as claims rather than findings:
   `arrival_window_in_minutes` on create, `arrival_window_minutes` on an appointment,
   `arrival_window` on a schedule read back.
 
+- `GET /service_zones` is listed under an Application API Key and OAuth only -- the spec's
+  security for `/routes`, which refuses a Company API Key -- so a company key may be refused
+  here too. It answers `{service_zones: […], total_pages}`, each zone `id`, `name`,
+  `coverage_type`, `zip_codes`, `cities` and `service_pros`; a zone drawn by city may carry no
+  ZIP codes. `page_size` defaults to 10.
+
 A company-scoped key refuses `X-Company-Id` with a 401 on every endpoint, so the header can only
 be exercised with an application key. `GET /company` answers `locations` only to the latter, and
 nests: a location holds locations of its own, several levels deep.

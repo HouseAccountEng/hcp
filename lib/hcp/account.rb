@@ -22,6 +22,9 @@ module Hcp
     # @return [Technicians] employees of the location, walked a page at a time.
     def technicians = Technicians.new client: @client
 
+    # @return [Areas] service zones of the location, walked a page at a time.
+    def areas = Areas.new client: @client
+
     # @return [Leads] leads of the location, to open and to move.
     def leads = Leads.new client: @client
   end
