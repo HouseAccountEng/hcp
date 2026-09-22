@@ -1,5 +1,15 @@
 ## [Unreleased]
 
+## [5.1.0] - 2026-09-22
+
+- [Feature] `account.areas`, the service zones of the location as `Hcp::Area`: each an ID, a
+  name and its ZIP codes, read off `GET /service_zones` a page of 200 at a time, where
+  Housecall Pro's default is ten. The vocabulary is `company` 4.1, where `areas` is named; the
+  pin is `~> 4.1`.
+
+- [Note] The spec lists `/service_zones` under an Application API Key and OAuth only, as it
+  lists `/routes`, which refuses a Company API Key. It has not yet been asked with a real key.
+
 ## [5.0.0] - 2026-09-17
 
 - [Breaking change] The vocabulary is `company` 4.0: `of` takes the ID Housecall Pro files a

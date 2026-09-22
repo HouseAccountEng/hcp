@@ -185,6 +185,19 @@ What Housecall Pro schedules elsewhere is still not here: time blocked out on th
 filed under `/events`, which takes no date and no employee to narrow by, so a week of it cannot
 be asked for -- only paged in full.
 
+## Areas
+
+The ZIP codes a business serves are its service zones, walked a page at a time:
+
+```ruby
+account.areas.each do |area|
+  area.id, area.name, area.zips
+end
+```
+
+A zone answers its coverage type, trip charge, cities and pros as well, and none is read: the
+vocabulary names an area by what it is called and the ZIP codes under it.
+
 ## Errors
 
 Everything descends from `Hcp::Error`, which descends from `Company::Error`, so one rescue
